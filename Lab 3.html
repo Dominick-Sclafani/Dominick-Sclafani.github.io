@@ -1,36 +1,118 @@
 <head>
-    <title>Your Page Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+  <title>My Favorite Books</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    </head>
-      
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      
-          <span class="navbar-toggler-icon"></span>
-        </button>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Labs
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="README.md">Lab 1</a></li>
+              <li><a class="dropdown-item" href="index.html">Index Lab 2</a></li>
+              <li><a class="dropdown-item active" href="Lab 3.html">Lab 3</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-            <li class="nav-item dropdown">
-                <div class="btn-group">
-              <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Labs
-              </button>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="README.md">Lab 1</a>
-                <a class="dropdown-item" href="index.html">Index Lab 2</a>
-                <a class="dropdown-item" href="Lab 3.html">Lab 3</a>
-                
+  <div class="jumbotron jumbotron-fluid bg-secondary-subtle">
+    <div class="container">
+      <h1 class="display-3">My Favorite Books I have read</h1>
+      <p class="lead">These are some of my favorite books I have read or am currently reading.</p>
+      <hr class="my-3">
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table table-hover table-responsive table-sm">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Author</th>
+              <th scope="col">Book Name</th>
+              <th scope="col">Genre</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr>
+              <th scope="row">1</th>
+              <td>William Gibson</td>
+              <td>Neuromancer</td>
+              <td>Cyberpunk/Scifi</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Phillip K. Dick</td>
+              <td>Do Androids Dream of Electric Sheep?</td>
+              <td>Sci-fi</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>Osamu Dazai</td>
+              <td>No Longer Human</td>
+              <td>Fiction Novel</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-              </div>
-            </li>
-        </div>
-      </nav>
+      <div class="col-md-6 d-flex align-items-center p-2 ">
+        <img src="Images/Bookmeme.jpg" class=" rounded img-fluid float-end" alt="Meme" width="400px">
+
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Why Neuromancer is my favorite book of all time.</h2>
+        <p>Neuromancer was released in 1984 by William Gibson in a time in which society had just invented the Internet
+          at its very young point.</p>
+        <ul>
+          <li> Released as a Sci-fi novel before Cyberpunk was termed at a time when the Internet was very new and all
+            these concepts were new.</li>
+          <li>Coined the term Cyberspace in the book to what we know like in the Matrix etc.</li>
+          <li>Gave a dystopian near-future that serves as a warning to way things can go with technology and Artifical
+            Intelligence but keeps it fiction enough to be fun!</li>
+        </ul>
+      </div>
+      <div class="col-md-4 d-flex align-items-center justify-content-center p-4">
+        <img src="Images/Neuromancer.jpg" class="rounded img-fluid" alt="Neuromancer cover">
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Dominick Sclafani</h3>
+  <p>September 25th 2024</p>
+
+
+
 </body>
+
 </html>
