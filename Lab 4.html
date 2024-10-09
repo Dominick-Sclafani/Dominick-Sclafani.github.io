@@ -51,7 +51,17 @@
 
         name = window.prompt("Please Enter your name", "Dom");
         potion = window.prompt("What potion would you like to buy?", "Health potion");
-        number_of_item = window.prompt("How many of this potion would you want?", "5");
+
+        do {
+
+            number_of_item = window.prompt("How many of this potion would you want? (1-99)", "5");
+            if (number_of_item < 1 || number_of_item > 99 || isNaN(number_of_item)) {
+                window.alert("Please enter a vlid number between 1-99!")
+            }
+
+        } while (number_of_item < 1 || number_of_item > 99 || isNaN(number_of_item));
+
+
 
         if (hour < 12) {
             document.writeln("<h1> Goodmorning ")
