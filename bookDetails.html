@@ -54,7 +54,7 @@
 <script>
     async function fetchBookDetails() {
         //URL search params parses the query value into key value pairs   returning /works/{bookKey} based on previous window session
-        var getQuery = new URLSearchParams(window.location.search);
+        var getQuery = new URLSearchParams(location.search);
         var bookKey = getQuery.get("bookKey");
         //if bookKey does not exist  return null 
         if (bookKey) {
