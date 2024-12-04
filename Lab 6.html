@@ -1,83 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 
 <head>
     <meta charset="UTF-8">
-    <!--Bootstrap-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The OpenLibrary - Search For Any Book You Want</title>
-
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
-
+    <title>Registration Form</title>
 </head>
 
 <body>
+    <!----Navbar Creation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">OpenLibrary</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Search</a>
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Labs
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="README.md">Lab 1</a></li>
+                            <li><a class="dropdown-item" href="index.html">Index Lab 2</a></li>
+                            <li><a class="dropdown-item" href="Lab 3.html">Lab 3</a></li>
+                            <li><a class="dropdown-item " href="Lab 4.html">Lab 4</a></li>
+                            <li><a class="dropdown-item " href="Lab 5.html">Lab 5</a></li>
+                            <li><a class="dropdown-item active" href="Lab 6.html">Lab 6</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
-    <!--Navbar end-->
-    <div class="card shadow-lg mb-5">
-        <div class="card-body">
-            <h1 id="bookTitle" class="card-title text-center mb-4"></h1>
-            <div id="bookDetails"></div>
+    <!--navbar end-->
+
+    <!--boootstrap 5 jumbotron-->
+    <div class="p-3 mb-2 bg-dark text-bg-tertiary border rounded-3">
+        <div class="container-fluid">
+            <h1 class="display-5 fw-bold ">Cat Fact</h1>
+            <p class="col-md-6 fs-4">Click the button to get a cat fact, and even a picture of a cat!!</p>
         </div>
     </div>
-</body>
+    <!--Jumbotron end-->
+    <div class="container-fluid text-center">
+        <div class="d-flex justify-content-center">
+            <div class="row">
+                <div class="col-md-8">
+                    <img src="Images/cat-close-to-camera-cat.gif" id="catImage" class="image-fluid" width="100%"
+                        alt="Cat close to the camera in the flash.">
+                    <button onclick="fetchCatData()" class="btn btn-primary">Click Me!!!</button>
+                    <div id="catTable-container" class="mt-5"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script>
-    // Extract the bookKey from the URL query string
-    var queryString = window.location.search;
-    var queryParts = queryString.split("=");
-    var bookKey = queryParts[1];
+    <script>
+        //GET async function 
+        async function fetchCatData() {
+            const url = 'https://brianobruno.github.io/cats.json'
+            try {
+                const options =
+                {
+                    method: 'GET',
+                };
+                const response = await fetch(url, options);
+                const result = await
+                    response.text();
+                const myObj = JSON.parse(result);
+                //sort factid in ascending order
+                myObj.facts.sort((a, b) => a.factId - b.factId);
+                document.getElementById("catImage").src = myObj.catPhoto;
+                DisplayCat(myObj.facts);
+            } catch (error) {
+                window.alert("Error Fetching cat data" + error);
+            }
+        }
 
-    if (bookKey) {
-        // Construct the API URL
-        var url = "https://openlibrary.org" + bookKey + ".json";
+        //Display APi info
+        function DisplayCat(myObj) {
+            const container = document.getElementById("catTable-container")
+            container.innerHTML = ' ';
 
-        // Fetch the book details
-        fetch(url)
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                // Dynamically display book details
-                document.getElementById("bookTitle").innerText = data.title;
 
-                var detailsHTML = '<p><strong>Description:</strong> ' +
-                    (data.description ? (typeof data.description === 'string' ? data.description : data.description.value) : 'No description available') +
-                    '</p>';
+            var table = document.createElement('table');
+            table.classList.add("table", "table-dark", "table-striped-columns", "table-hover");
+            // "<thead >" + "<tr><th>Potion </th>" + "<th>Quantity </th></tr></thead>" + "<tbody><tr>" + "<td>" + potion + " </td>" + "<td> " + number_of_item + " </td></tr>"
 
-                detailsHTML += '<p><strong>Subjects:</strong> ' +
-                    (data.subjects ? data.subjects.join(', ') : 'No subjects available') +
-                    '</p>';
+            const header = table.insertRow();
+            header.innerHTML = "<th>Fact ID</th>" + "<th>Fact</th>";
 
-                document.getElementById("bookDetails").innerHTML = detailsHTML;
-            })
-            .catch(function (error) {
-                document.getElementById("bookDetails").innerHTML = '<p>Error fetching book details: ' + error + '</p>';
-            });
-    } else {
-        document.getElementById("bookDetails").innerHTML = '<p>No book key provided. Please go back and select a book.</p>';
-    }
-</script>
+            //read myobj json and populate the table dynamically creating cells
+            let rowData = "";
+            for (const i in myObj) {
+                const row = table.insertRow();
+                rowData += myObj[i] + ", ";
+                const factIdcell = row.insertCell();
+                factIdcell.innerHTML = myObj[i].factId;
+                const factTextcell = row.insertCell();
+                factTextcell.innerHTML = myObj[i].text;
 
+            }
+            container.appendChild(table);
+
+        }
+
+
+
+
+
+
+
+    </script>
 
 
 </body>
