@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <!--Bootstrap-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The OpenLibrary - Search For Any Book You Want</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">BookFinder</a>
+            <button class="navbar-toggler" type="button" result-bs-toggle="collapse" result-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Finalindex.html">Search</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--Navbar end-->
+
+    <!--bootstrap cards-->
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg border-primary">
+                    <img id="bookCover" src="" class="card-img-top img-fluid mx-auto d-block mt-3"
+                        style="max-width: 75%; height: auto;">
+                    <div class="card-body">
+                        <h1 id="bookTitle" class="card-title text-center mb-4"></h1>
+                        <div id="bookDetails"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    async function fetchBookDetails() {
+        //URL search params parses the query value into key value pairs   returning /works/{bookKey} based on previous window session
+        var getQuery = new URLSearchParams(window.location.search);
+        var bookKey = getQuery.get("bookKey");
+        //if bookKey does not exist  return null 
+        if (bookKey) {
+            //getting works api endpoint
+            var url = "https://openlibrary.org" + bookKey + ".json";
+
+            try {
+                const options = {
+                    method: 'GET'
+                };
+
+                const response = await fetch(url, options);
+                const result = await response.json();
+
+                // display the book title
+                document.getElementById("bookTitle").innerText = result.title;
+
+                if (result.covers && result.covers.length > 0) {
+                    coverId = result.covers[0];
+                }
+
+                var coverUrl;
+                if (coverId) {
+                    coverUrl = "https://covers.openlibrary.org/b/id/" + coverId + "-M.jpg";
+                } else {
+                    coverUrl = "Images/Placeholder image.jpg";
+                }
+
+                document.getElementById("bookCover").src = coverUrl;
+                //display book details
+                var details = '<h3>Description:</h3> ';
+                if (result.description) {
+                    if (result.description.value) {
+                        //if description has a value return this
+                        details += result.description.value;
+                    } else {//if not then it is a string
+                        details += result.description;
+                    }
+                } else {
+                    details += 'No description available :(';
+                }
+                details += '</p>';
+
+                details += '<h4>Subjects:</h4> ';
+                if (result.subjects) {
+                    var subjectsList = "";
+                    //through each subject add a comma in between
+                    for (var i = 0; i < result.subjects.length; i++) {
+                        if (i > 0) {
+                            subjectsList += ", ";
+                        }
+                        subjectsList += result.subjects[i];
+                    }
+                    details += subjectsList;
+                } else {
+                    details += 'No subjects, barely a book :(';
+                }
+                details += '</p>';
+
+                document.getElementById("bookDetails").innerHTML = details;
+            } catch (error) {
+                alert("Error getting book: " + error);
+
+            }
+        } else {
+            document.getElementById("bookDetails").innerHTML = '<p>This book does not exist!!! How did we get here?!?!?!?!</p>';
+        }
+    }
+    fetchBookDetails();
+</script>
